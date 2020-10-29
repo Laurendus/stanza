@@ -71,7 +71,8 @@ def get_md5(path):
     """
     Get the MD5 value of a path.
     """
-    data = open(path, 'rb').read()
+    with open(path, 'rb') as f:
+        data = f.read()
     return hashlib.md5(data).hexdigest()
 
 def unzip(dir, filename):
@@ -339,7 +340,8 @@ def download(
     )
     # unpack results
     try:
-        resources = json.load(open(os.path.join(dir, 'resources.json')))
+        with open(os.path.join(dir, 'resources.json')) as f:
+            resources = json.load(f)
     except:
         raise Exception(
             f'Cannot load resource file. Please check your network connection, '
